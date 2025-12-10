@@ -1,134 +1,152 @@
-📌 – Sistema de Gestión de Gastos y Pagos (Django REST + MySQL)
+# 📌 Sistema de Gestión de Gastos y Pagos (Django REST + MySQL)
 
-🧾 Descripción del Proyecto
+## 🧾 Descripción del Proyecto
 
-Este proyecto implementa un sistema de control de gastos y pagos para una empresa.
-Permite:
+Este proyecto implementa un **sistema de control de gastos y pagos** para una empresa, diseñado para gestionar el ciclo completo de aprobación y procesamiento de pagos.
 
-Registrar gastos (Bills)
+### Funcionalidades principales:
 
-Aprobar o cancelar gastos
+- Registrar gastos (Bills)
+- Aprobar o cancelar gastos
+- Generar pagos asociados
+- Validar saldo bancario antes de procesar pagos
+- Registrar histórico completo de transacciones
+- API REST completa construida con Django REST Framework
 
-Generar pagos asociados
+**Objetivo:** Demostrar diseño de software profesional, arquitectura limpia, modelado de datos robusto y mejores prácticas con Django REST Framework.
 
-Validar saldo bancario antes de pagar
+---
 
-Registrar histórico de transacciones
+## 🧩 Diagrama ER (MER)
 
-Consumir todo mediante una API REST construida con Django
+El modelo entidad-relación define las entidades principales del sistema:
 
-El objetivo es demostrar diseño de software, arquitectura limpia, modelado de datos profesional y uso de Django REST Framework.
+- **Bank_Account** → Cuentas bancarias donde se descuenta el dinero
+- **Bills** → Representan los gastos registrados
+- **Payments** → Ejecución del pago de un gasto
+- **Transaction_History** → Registro de todos los cargos y pagos
 
+### Relaciones principales:
 
-🧩 Diagrama ER (MER)
+- Un `Bill` puede generar un `Payment`
+- Un `Payment` pertenece a una `Bank_Account`
+- Toda acción queda registrada en `Transaction_History`
 
-El modelo entidad-relación define las entidades principales:
+### 📎 MER completo:
 
-Bank_Account → cuentas donde se descuenta el dinero
+> **TODO:** Agregar el diagrama del modelo entidad-relación
 
-Bills → representan gastos
-
-Payments → ejecución del pago de un gasto
-
-Transaction_History → registro de cargos y pagos
-
-✔ Relación principal
-
-Un Bill puede generar un Payment
-
-Un Payment pertenece a una Bank_Account
-
-Toda acción queda registrada en Transaction_History
-
-📎 MER completo (imagen):
-👉 TODO: pegar aquí el link de tu imagen del MER
 ![MER](URL_AQUI)
 
-🔄 Diagrama de Flujo del Proceso
+---
 
-Representa todo el ciclo: creación del gasto, aprobación, generación del pago, validación de saldo y finalización.
+## 🔄 Diagrama de Flujo del Proceso
 
-📎 Diagrama de flujo:
-👉 TODO: pegar aquí el link de tu diagrama de flujo
+Representa el ciclo completo del sistema:
+
+1. Creación del gasto
+2. Aprobación
+3. Generación del pago
+4. Validación de saldo
+5. Ejecución y finalización
+
+### 📎 Diagrama de flujo:
+
+> **TODO:** Agregar el diagrama de flujo del proceso
+
 ![Diagrama de Flujo](URL_AQUI)
 
-🛠️ Tecnologías Utilizadas
+---
 
-Python 3.x
+## 🛠️ Tecnologías Utilizadas
 
-Django
+| Tecnología | Versión |
+|-----------|---------|
+| Python | 3.x |
+| Django | Latest |
+| Django REST Framework | Latest |
+| MySQL | 8.0+ |
+| Postman | Para pruebas de API |
 
-Django REST Framework
+---
 
-MySQL
+## 📂 Estructura del Proyecto
+```
+proyecto-gastos/
+│
+├── core/
+│   ├── models.py          # Modelos de datos
+│   ├── serializers.py     # Serializadores DRF
+│   ├── views.py           # Lógica de vistas/endpoints
+│   └── urls.py            # Rutas de la API
+│
+├── requirements.txt
+├── manage.py
+└── README.md
+```
 
-Postman (para pruebas)
+---
 
-📂 Estructura Principal
-core/
- ├── models.py
- ├── serializers.py
- ├── views.py
- └── urls.py
+## 🧱 Modelos Principales
 
-🧱 Modelos Principales (Resumen)
-BankAccount
+### BankAccount
 
-name
+- `name` - Nombre de la cuenta
+- `account_number` - Número de cuenta
+- `bank` - Banco asociado
+- `balance` - Saldo disponible
 
-account_number
+### Bill
 
-bank
+- `description` - Descripción del gasto
+- `amount` - Monto
+- `status` - Estado: `pending`, `approved`, `cancelled`, `paid`
 
-balance
+### Payment
 
-Bill
+- `bill_id` - Referencia al gasto
+- `account_id` - Cuenta bancaria asociada
+- `amount` - Monto a pagar
+- `status` - Estado del pago
+- Fechas: `creation`, `approval`, `cancellation`, `payment`
 
-description
+### TransactionHistory
 
-amount
+- `account_id` - Cuenta involucrada
+- `payment_id` - Pago relacionado
+- `amount` - Monto de la transacción
+- `type` - Tipo: `charge` o `payment`
 
-status (pending, approved, cancelled, paid)
+---
 
-Payment
+## 🚀 Instalación y Configuración
 
-bill_id
-
-account_id
-
-amount
-
-status
-
-fechas: creation, approval, cancellation, payment
-
-TransactionHistory
-
-account_id
-
-payment_id
-
-amount
-
-type (charge / payment)
-
-🚀 Instalación y Configuración
-1️⃣ Clonar el repositorio
-
-
+### 1️⃣ Clonar el repositorio
+```bash
 git clone https://github.com/usuario/proyecto-gastos.git
 cd proyecto-gastos
-2️⃣ Crear entorno virtual
+```
 
+### 2️⃣ Crear entorno virtual
+```bash
+# Linux/Mac
 python -m venv venv
-source venv/bin/activate   # Linux/Mac
-venv\Scripts\activate      # Windows
-3️⃣ Instalar dependencias
+source venv/bin/activate
+
+# Windows
+python -m venv venv
+venv\Scripts\activate
+```
+
+### 3️⃣ Instalar dependencias
+```bash
 pip install -r requirements.txt
-4️⃣ Configurar base de datos MySQL
+```
 
-Agrega en settings.py:
+### 4️⃣ Configurar base de datos MySQL
 
+Edita el archivo `settings.py` y configura la conexión a MySQL:
+```python
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -139,73 +157,91 @@ DATABASES = {
         'PORT': '3306',
     }
 }
+```
 
-5️⃣ Migraciones
-
-
+### 5️⃣ Ejecutar migraciones
+```bash
 python manage.py makemigrations
 python manage.py migrate
-6️⃣ Ejecutar el servidor
+```
 
+### 6️⃣ Iniciar el servidor
+```bash
 python manage.py runserver
+```
 
-🧪 Uso y Pruebas en Postman
-✔ Crear un gasto (Bill)
+El servidor estará disponible en: `http://localhost:8000`
 
-POST
-/api/bills/
+---
 
-Body JSON:
+## 🧪 Uso y Pruebas con Postman
 
+### Crear un gasto (Bill)
+
+**Endpoint:** `POST /api/bills/`
+
+**Body (JSON):**
+```json
 {
   "description": "Compra de insumos",
   "amount": 1500.50
 }
+```
 
-✔ Aprobar un gasto
+### Aprobar un gasto
 
-POST
-/api/bills/1/approve/
+**Endpoint:** `POST /api/bills/1/approve/`
 
-✔ Crear un pago vinculado
+### Crear un pago vinculado
 
-POST
-/api/payments/
+**Endpoint:** `POST /api/payments/`
 
-✔ Aprobar un pago
+### Aprobar un pago
 
-POST
-/api/payments/1/approve/
+**Endpoint:** `POST /api/payments/1/approve/`
 
-✔ Pagar y descontar del banco
+### Ejecutar pago y descontar del banco
 
-POST
-/api/payments/1/pay/
+**Endpoint:** `POST /api/payments/1/pay/`
 
-🧠 Lógica del Negocio (Resumen)
+---
 
-Se crea un gasto en estado pending.
+## 🧠 Lógica de Negocio
 
-Si el gasto se aprueba → cambia a approved.
+### Flujo completo del proceso:
 
-Opcionalmente se genera un pago asociado.
+1. Se crea un gasto en estado `pending`
+2. El gasto se aprueba → cambia a `approved`
+3. Se genera un pago asociado al gasto
+4. El pago se aprueba y se valida el saldo disponible
+5. Si hay saldo suficiente → se descuenta y el pago se marca como `paid`
+6. Toda la operación se registra en el historial de transacciones
 
-El pago se aprueba y luego se valida si la cuenta tiene saldo.
+---
 
-Si tiene saldo → se descuenta y se marca paid.
+## 📺 Puntos Clave para Entrevistas
 
-Se registra todo en el historial de transacciones.
+Este proyecto demuestra:
 
-📺 Explicación para Entrevistas
+- ✅ **Modelado de datos profesional** - Diseño de base de datos normalizado y escalable
+- ✅ **Manejo de estados y flujos complejos** - Gestión de estados de gastos y pagos
+- ✅ **Diseño de API REST** - Endpoints bien estructurados siguiendo mejores prácticas
+- ✅ **Clean Code** - Código mantenible y documentado
+- ✅ **Seguridad y consistencia** - Validaciones en cada transición de estado
+- ✅ **Documentación clara** - README completo y fácil de seguir
 
-Este proyecto muestra:
+---
 
-Dominio de modelado de datos
+## 📄 Licencia
 
-Manejo de estados y flujos complejos
+Este proyecto está bajo licencia MIT.
 
-Buen diseño de API y clean code
+---
 
-Seguridad y consistencia en cada transición
+## 👤 Autor
 
-Documentación clara y mantenible
+**Brandon Daniel Ortiz Mejia**
+
+- GitHub: https://github.com/DanieloDevs
+- LinkedIn: https://www.linkedin.com/in/danielodev/
+
