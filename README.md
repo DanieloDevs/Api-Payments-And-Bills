@@ -12,9 +12,6 @@ Este proyecto implementa un **sistema de control de gastos y pagos** para una em
 - Validar saldo bancario antes de procesar pagos
 - Registrar histórico completo de transacciones
 - API REST completa construida con Django REST Framework
-
-**Objetivo:** Demostrar diseño de software profesional, arquitectura limpia, modelado de datos robusto y mejores prácticas con Django REST Framework.
-
 ---
 
 ## 🧩 Diagrama ER (MER)
@@ -34,9 +31,7 @@ El modelo entidad-relación define las entidades principales del sistema:
 
 ### 📎 MER completo:
 
-> **TODO:** Agregar el diagrama del modelo entidad-relación
-
-![MER](URL_AQUI)
+![MER](https://drive.google.com/file/d/1WbjvogalPRyQCyAg6Cakmfr2rx8MKltc/view?usp=sharing)
 
 ---
 
@@ -52,9 +47,7 @@ Representa el ciclo completo del sistema:
 
 ### 📎 Diagrama de flujo:
 
-> **TODO:** Agregar el diagrama de flujo del proceso
-
-![Diagrama de Flujo](URL_AQUI)
+![Diagrama de Flujo](https://drive.google.com/file/d/18Fd6ETacvMjbjfg1orIHshMpV_TzqRVI/view?usp=sharing)
 
 ---
 
@@ -230,13 +223,6 @@ Este proyecto demuestra:
 - ✅ **Seguridad y consistencia** - Validaciones en cada transición de estado
 - ✅ **Documentación clara** - README completo y fácil de seguir
 
----
-
-## 📄 Licencia
-
-Este proyecto está bajo licencia MIT.
-
----
 
 ## 👤 Autor
 
